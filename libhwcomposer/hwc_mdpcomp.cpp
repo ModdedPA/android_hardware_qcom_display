@@ -357,7 +357,7 @@ bool MDPComp::isFrameDoable(hwc_context_t *ctx) {
 bool MDPComp::isFullFrameDoable(hwc_context_t *ctx,
                                 hwc_display_contents_1_t* list){
 
-    const int numAppLayers = ctx->listStats[mDpy].numAppLayers;
+    int numAppLayers = ctx->listStats[mDpy].numAppLayers;
 
     if(sIdleFallBack) {
         ALOGD_IF(isDebug(), "%s: Idle fallback dpy %d",__FUNCTION__, mDpy);
@@ -391,7 +391,7 @@ bool MDPComp::isFullFrameDoable(hwc_context_t *ctx,
     }
 
     //MDP composition is not efficient if layer needs rotator.
-    for(int i = 0; i < numAppLayers; ++i) {
+    for(unsigned int i = 0; i < numAppLayers; ++i) {
         // As MDP h/w supports flip operation, use MDP comp only for
         // 180 transforms. Fail for any transform involving 90 (90, 270).
         hwc_layer_1_t* layer = &list->hwLayers[i];
